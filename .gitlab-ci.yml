@@ -1,0 +1,19 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  before_script:
+    - 'which ssh-agent'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
+  script:
+    - ssh $SSH_USERNAME@$SERVER_IP "
+      cd /home/oanor-my/htdocs/my.oanor.com/oanor-fe &&
+      git pull origin main
+      "
+  only:
+    - main

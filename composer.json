@@ -1,0 +1,12 @@
+{
+    "require": {
+        "pecee/simple-router": "^5.4",
+        "ramsey/uuid": "^4.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Panel\\": "app/",
+            "Route\\": "routes/"
+        }
+    }
+}
